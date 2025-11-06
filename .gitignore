@@ -1,9 +1,42 @@
 # File; .gitignore
 
+# IDEs
 .vscode
-.python-version
-__pycache__
 .idea
+*.swp
+*.swo
+*~
+
+# Python
+.python-version
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+venv/
+env/
+ENV/
+
+# Sensitive Configuration
 config.conf
+*.conf
+
+# Generated Media
 generated_media
 har_and_cookies
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local

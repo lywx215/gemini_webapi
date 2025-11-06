@@ -138,18 +138,18 @@ def print_server_info(host: str, port: int, mode: str):
     print("\n" + "=" * 80)
     print(f"{Colors.BOLD}{Colors.YELLOW}{app_info_line}{Colors.RESET}")
     if mode == "webai":
-        print("🚀 WebAI-to-API Server is RUNNING (Primary Mode) 🚀".center(80))
+        print("[*] WebAI-to-API Server is RUNNING (Primary Mode) [*]".center(80))
         print("=" * 80)
-        print("\n✨ Available Services:")
+        print("\n[+] Available Services:")
         print(f"  - Docs (Swagger): {base_url}/docs")
-        print("\n⚙️ Config.conf:")
+        print("\n[=] Config.conf:")
         try:
             CONFIG = load_config()
             print(f"  - Browser: {CONFIG['Browser']['name']}")
             print(f"  - Model: {CONFIG['AI']['default_model_gemini']}")
         except Exception:
             print("  - Could not load config details.")
-        print("\n🔗 API Endpoints:")
+        print("\n[>] API Endpoints:")
         paths = sorted(
             list(
                 set(
@@ -167,16 +167,16 @@ def print_server_info(host: str, port: int, mode: str):
             ]:
                 print(f"  - {base_url}{path}")
     elif mode == "g4f":
-        print("🚀 gpt4free Server is RUNNING 🚀".center(80))
+        print("[*] gpt4free Server is RUNNING [*]".center(80))
         print("=" * 80)
         g4f_base_url = f"{base_url}/v1"
-        print("\n✨ gpt4free Service Info:")
+        print("\n[+] gpt4free Service Info:")
         print(f"  - Base URL: {g4f_base_url}")
         print(f"  - Docs (Swagger): {base_url}/docs")
-        print("\n🔍 API Discovery Endpoints:")
+        print("\n[?] API Discovery Endpoints:")
         print(f"  - Models   : {g4f_base_url}/models")
         print(f"  - Providers: {g4f_base_url}/providers")
-        print("\n🔗 Main API Endpoints:")
+        print("\n[>] Main API Endpoints:")
         print(f"  - Chat Completions: {g4f_base_url}/chat/completions")
         print(f"  - Image Generation: {g4f_base_url}/images/generate")
 
@@ -223,19 +223,19 @@ if __name__ == "__main__":
     webai_is_available = asyncio.run(init_gemini_client())
     if webai_is_available:
         print(
-            f"INFO:     ✅ {Colors.CYAN}WebAI-to-API mode is available{Colors.RESET} (Gemini client initialized)."
+            f"INFO:     [OK] {Colors.CYAN}WebAI-to-API mode is available{Colors.RESET} (Gemini client initialized)."
         )
     else:
         print(
-            f"WARN:     ⚠️ {Colors.YELLOW}WebAI-to-API mode is not available{Colors.RESET} (Could not initialize Gemini client)."
+            f"WARN:     [!!] {Colors.YELLOW}WebAI-to-API mode is not available{Colors.RESET} (Could not initialize Gemini client)."
         )
     if G4F_AVAILABLE:
         print(
-            f"INFO:     ✅ {Colors.CYAN}gpt4free mode is available{Colors.RESET} ('g4f' library is installed)."
+            f"INFO:     [OK] {Colors.CYAN}gpt4free mode is available{Colors.RESET} ('g4f' library is installed)."
         )
     else:
         print(
-            f"WARN:     ⚠️ {Colors.YELLOW}gpt4free mode is not available{Colors.RESET} ('g4f' library not found)."
+            f"WARN:     [!!] {Colors.YELLOW}gpt4free mode is not available{Colors.RESET} ('g4f' library not found)."
         )
 
     # --- Set initial mode based on OS ---

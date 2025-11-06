@@ -16,14 +16,19 @@ async def lifespan(app: FastAPI):
     Application lifespan manager.
     Initializes services on startup.
     """
-    # Initialization logic is handled by the `run.py` script before the app starts.
-    # We only initialize session managers here if the client was created successfully.
-    if get_gemini_client():
+    # Import here to avoid circular dependency
+    from app.services.gemini_client import init_gemini_client
+
+    # Initialize the Gemini client in this process
+    client_initialized = await init_gemini_client()
+    if client_initialized:
         init_session_managers()
-        logger.info("Session managers initialized for WebAI-to-API.")
-    
+        logger.info("Gemini client and session managers initialized for WebAI-to-API.")
+    else:
+        logger.warning("Gemini client could not be initialized. API endpoints may not work.")
+
     yield
-    
+
     # Shutdown logic: No explicit client closing is needed anymore.
     # The underlying HTTPX client manages its connection pool automatically.
     logger.info("Application shutdown complete.")
